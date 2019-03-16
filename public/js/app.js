@@ -4,23 +4,19 @@
 */
 class TimersDashboard extends React.Component {
   state = {
-    timers: [
-      {
-        title: "Mow the lawn",
-        project: "Hous",
-        elapsed: 5789850,
-        id: uuid.v4(),
-        runningSince: Date.now(),
-      },
-      {
-        title: "Bake squash",
-        project: "Kitchen Chores",
-        id: uuid.v4(),
-        elapsed: 357641,
-        runningSince: null,
-      },
-    ],
+    timers: [],
   }
+
+  componentDidMount() {
+    this.loadTimersFromServer();
+    setInterval(this.loadTimersFromServer, 10000);
+  }
+
+  loadTimersFromServer = () => {
+    client.getTimers((serverTimers) => (
+      this.setState({ timers: serverTimers })
+    ));
+  };
 
   newTimer = (attr = {}) => {
     const timer = {
@@ -43,10 +39,11 @@ class TimersDashboard extends React.Component {
       timers: this.state.timers.concat(t)
     })
     console.log(t)
-  }
+
+    client.createTimer(t);
+  };
 
   handleUpdateFormSubmit = (timer) => {
-    console.log('updating form', timer)
     this.updateTimer(timer)
   };
 
@@ -64,6 +61,8 @@ class TimersDashboard extends React.Component {
         }
       }),
     });
+
+    client.updateTimer(attrs);
   };
 
   handleTrashClick = (timerId) => {
@@ -75,6 +74,10 @@ class TimersDashboard extends React.Component {
     this.setState({
       timers: this.state.timers.filter(t => t.id !== timerId),
     });
+
+    client.deleteTimer(
+      { id: timerId }
+    );
   };
 
   handleStopClick = (timerId) => {
@@ -84,6 +87,7 @@ class TimersDashboard extends React.Component {
 
   startTimer = (timerId) => {
     const now = Date.now()
+
     this.setState({
       timers: this.state.timers.map((timer) => {
         if (timerId === timer.id) {
@@ -96,6 +100,10 @@ class TimersDashboard extends React.Component {
         };
       }),
     });
+
+    client.startTimer(
+      { id: timerId, start: now }
+    );
   };
 
   handleStartClick = (timerId) => {
@@ -118,6 +126,10 @@ class TimersDashboard extends React.Component {
         };
       }),
     });
+    
+    client.stopTimer(
+      { id: timerId, stop: now }
+    );
   };
 
   render() {
