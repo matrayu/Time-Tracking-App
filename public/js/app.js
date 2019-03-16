@@ -198,18 +198,21 @@ class ToggleableTimerForm extends React.Component {
 class EditableTimerList extends React.Component {
   render() {
     console.log('EditableTimerList Ran')
+    const props = { 
+      onFormSubmit: this.props.onFormSubmit,
+      onTrashClick: this.props.onTrashClick,
+      onStopClick: this.props.onStopClick,
+      onStartClick: this.props.onStartClick 
+    }
     const timers = this.props.timers.map((timer) => (
       <EditableTimer 
+        {...props} 
         id={timer.id}
         key={timer.id}
         title={timer.title}
         project={timer.project}
         elapsed={timer.elapsed}
         runningSince={timer.runningSince}
-        onFormSubmit={this.props.onFormSubmit}
-        onTrashClick={this.props.onTrashClick}
-        onStopClick={this.props.onStopClick}
-        onStartClick={this.props.onStartClick}
       />
     ));
 
