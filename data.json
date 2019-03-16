@@ -1,6 +1,6 @@
 [
     {
-        "title": "The Reals",
+        "title": "The Reals ds",
         "project": "New Timer Update",
         "id": "f8cd884c-699b-41f6-b502-64a74dc4a0d1",
         "elapsed": 6233426,
@@ -17,14 +17,14 @@
         "title": "New Timer",
         "project": "3rd Timer",
         "id": "e74d7f20-153b-44e7-bc46-19e72c9de4f8",
-        "elapsed": 0,
-        "runningSince": 1552694590520
+        "elapsed": 49551496,
+        "runningSince": null
     },
     {
         "title": "4th Title",
         "project": "Another Project",
         "id": "31d3df38-78e8-4b2e-927a-cee703437a1e",
-        "elapsed": 7786,
+        "elapsed": 10158,
         "runningSince": null
     }
 ]
